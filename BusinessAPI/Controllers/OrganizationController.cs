@@ -21,9 +21,11 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<OrganizationModel>> Get(OrganizationQuery query)
+        public async Task<ActionResult<List<OrganizationModel>>> Get(OrganizationQuery query)
         {
-            return await _service.Get(query);
+            var response = await _service.Get(query);
+
+            return Ok(response);
         }
     }
 }
