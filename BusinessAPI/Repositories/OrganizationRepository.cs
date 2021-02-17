@@ -24,7 +24,7 @@ namespace BusinessAPI.Repositories
         {
             var queryable = dbSet;
             queryable = AddFilters(queryable, query);
-            return await (queryable.Skip(query.PageSize - 1).Take(query.PageSize)).ToListAsync();
+            return await (queryable.Skip(query.PageSize * query.PageNumber).Take(query.PageSize)).ToListAsync();
         }
 
         public IQueryable<OrganizationEntity> AddFilters(IQueryable<OrganizationEntity> queryable, OrganizationQuery query)

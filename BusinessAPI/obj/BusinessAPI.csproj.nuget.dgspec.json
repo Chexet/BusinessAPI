@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gurrapettersson\\source\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj": {}
+    "C:\\Users\\Gustav Pettersson\\source\\Repos\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gurrapettersson\\source\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj": {
+    "C:\\Users\\Gustav Pettersson\\source\\Repos\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gurrapettersson\\source\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Gustav Pettersson\\source\\Repos\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj",
         "projectName": "BusinessAPI",
-        "projectPath": "C:\\Users\\Gurrapettersson\\source\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj",
-        "packagesPath": "C:\\Users\\Gurrapettersson\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gurrapettersson\\source\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI\\obj\\",
+        "projectPath": "C:\\Users\\Gustav Pettersson\\source\\Repos\\Skolan\\BusinessAPI\\BusinessAPI\\BusinessAPI.csproj",
+        "packagesPath": "C:\\Users\\Gustav Pettersson\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gustav Pettersson\\source\\Repos\\Skolan\\BusinessAPI\\BusinessAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gurrapettersson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gustav Pettersson\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,7 +29,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -41,7 +40,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
@@ -60,6 +58,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             }
           },
           "imports": [
@@ -80,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

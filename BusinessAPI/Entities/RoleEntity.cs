@@ -17,7 +17,7 @@ namespace BusinessAPI.Entities
         public Guid OrganizationId { get; set; }
 
         [ForeignKey(nameof(OrganizationId))]
-        public Organization Organization { get; set; }
+        public OrganizationEntity Organization { get; set; }
 
     }
 }

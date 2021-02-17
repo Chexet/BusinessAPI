@@ -10,7 +10,7 @@ namespace BusinessAPI.Contexts
     public class BusinessContext : DbContext
     {
         public BusinessContext(DbContextOptions<BusinessContext> settings) : base(settings) { }
-        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<OrganizationEntity> Organizations { get; set; }
         public DbSet<TeamEntity> Teams { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
