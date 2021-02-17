@@ -1,5 +1,5 @@
-﻿using BusinessAPI.Contracts.Queries;
-using BusinessAPI.Entities;
+﻿using BusinessAPI.Contracts.Models;
+using BusinessAPI.Contracts.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace BusinessAPI.Services.Interfaces
 {
     public interface IOrganizationService
     {
-        Task<ICollection<OrganizationEntity>> Get(OrganizationQuery query);
+        Task<List<OrganizationModel>> Get(OrganizationQuery query);
     }
 }

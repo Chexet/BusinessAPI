@@ -1,4 +1,7 @@
 using BusinessAPI.Contexts;
+using BusinessAPI.Repositories;
+using BusinessAPI.Services;
+using BusinessAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace BusinessAPI
 {
@@ -29,7 +33,14 @@ namespace BusinessAPI
         {
             services.AddControllers();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddDbContext<BusinessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BusinessDatabase")));
+
+            services.AddScoped<OrganizationRepository>();
+
+            services.AddSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +50,13 @@ namespace BusinessAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(config =>
+            {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "BusinessAPIv1");
+                config.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 
