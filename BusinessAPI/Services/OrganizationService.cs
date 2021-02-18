@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
+using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Entities;
 using BusinessAPI.Repositories;
 using BusinessAPI.Services.Interfaces;
@@ -31,6 +32,11 @@ namespace BusinessAPI.Services
             var response = _mapper.Map<List<OrganizationEntity>, List<OrganizationModel>>(orgs);
 
             return response;
+        }
+
+        public async Task<OrganizationModel> CreateOrganization(OrganizationRequest request)
+        {
+            var entity = _mapper.Map()
         }
     }
 }

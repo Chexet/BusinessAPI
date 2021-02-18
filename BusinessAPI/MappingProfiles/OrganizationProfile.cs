@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessAPI.Contracts.Models;
+using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace BusinessAPI.Profiles
     {
         public OrganizationProfile()
         {
+            CreateMap<OrganizationRequest, OrganizationEntity>();
             CreateMap<OrganizationEntity, OrganizationModel>();
         }
     }

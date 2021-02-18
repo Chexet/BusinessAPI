@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BusinessAPI.Entities.Interface
+namespace BusinessAPI.Services
 {
-    public interface IEntity
+    public class UserService
     {
-        Guid Id { get; set; }
     }
 }

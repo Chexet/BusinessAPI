@@ -16,13 +16,6 @@ namespace BusinessAPI.Repositories
             dbSet = context.Organizations.AsQueryable();
         }
 
-        public async Task<List<OrganizationEntity>> Get(OrganizationQuery query)
-        {
-            var queryable = dbSet;
-            queryable = AddFilters(queryable, query);
-            return await (queryable.Skip(query.PageSize * query.PageNumber).Take(query.PageSize)).ToListAsync();
-        }
-
         protected override IQueryable<OrganizationEntity> AddFilters(IQueryable<OrganizationEntity> queryable, OrganizationQuery query)
         {
             if (!string.IsNullOrWhiteSpace(query.Name))

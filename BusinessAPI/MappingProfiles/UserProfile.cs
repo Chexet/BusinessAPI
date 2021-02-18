@@ -12,7 +12,9 @@ namespace BusinessAPI.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserEntity, UserModel>();
+            CreateMap<UserEntity, UserModel>()
+                .ForMember(destination => destination.RoleName, options => options
+                .MapFrom(source => source.Role.Name));
         }
     }
 }

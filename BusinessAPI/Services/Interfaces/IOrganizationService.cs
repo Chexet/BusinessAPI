@@ -10,5 +10,8 @@ namespace BusinessAPI.Services.Interfaces
     public interface IOrganizationService
     {
         Task<List<OrganizationModel>> Get(OrganizationQuery query);
+
+        Task<OrganizationModel> CreateOrganization(CreateOrganizationRequest request);
+
     }
 }

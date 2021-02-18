@@ -1,4 +1,4 @@
-﻿using BusinessAPI.Entities.Interface;
+﻿using BusinessAPI.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +18,7 @@ namespace BusinessAPI.Entities
         public Guid OrganizationId { get; set; }
 
         [ForeignKey(nameof(OrganizationId))]
-        public OrganizationEntity Organization { get; set; }
+        public OrganizationEntity Organization { get; set; }      
 
     }
 }

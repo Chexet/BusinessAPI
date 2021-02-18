@@ -1,4 +1,4 @@
-﻿using BusinessAPI.Entities.Interface;
+﻿using BusinessAPI.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

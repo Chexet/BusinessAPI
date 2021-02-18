@@ -34,14 +34,14 @@ namespace BusinessAPI
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddDbContext<BusinessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BusinessDatabase")));
-
-            services.AddScoped<OrganizationRepository>();
-
             services.AddSwaggerGen();
 
+            services.AddDbContext<BusinessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BusinessDatabase")));
+            
+            AddRepositories(services);
+            AddServices(services);
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,6 +68,16 @@ namespace BusinessAPI
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void AddServices(IServiceCollection services)
+        {
+            services.AddScoped<IOrganizationService, OrganizationService>();
+        }
+
+        private void AddRepositories(IServiceCollection services)
+        {
+            services.AddScoped<OrganizationRepository>();
         }
     }
 }
