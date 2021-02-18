@@ -1,5 +1,6 @@
 ﻿using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
+using BusinessAPI.Contracts.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace BusinessAPI.Services.Interfaces
     {
         Task<List<OrganizationModel>> Get(OrganizationQuery query);
 
-        Task<OrganizationModel> CreateOrganization(CreateOrganizationRequest request);
+        Task<OrganizationModel> Create(OrganizationRequest request);
 
     }
 }

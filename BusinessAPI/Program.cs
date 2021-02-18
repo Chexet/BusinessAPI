@@ -18,7 +18,7 @@ namespace BusinessAPI
         {
             var host = CreateHostBuilder(args).Build();
 
-            using(var serviceScope = host.Services.CreateScope()) 
+            using (var serviceScope = host.Services.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<BusinessContext>();
                 await context.Database.MigrateAsync();

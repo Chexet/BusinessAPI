@@ -29,7 +29,7 @@ namespace BusinessAPI.Repositories
         {
             var queryable = dbSet;
             queryable = AddFilters(queryable, query);
-            return await (queryable.Skip(query.PageSize * query.PageNumber).Take(query.PageSize)).ToListAsync();
+            return await queryable.Skip(query.PageSize * query.PageNumber).Take(query.PageSize).ToListAsync();
         }
 
         public virtual async Task<TEntity> Create(TEntity entity)
@@ -39,6 +39,19 @@ namespace BusinessAPI.Repositories
 
             return await dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
         }
+
+        public virtual async Task<TEntity> Update(Guid id, TEntity entity)
+        {
+            return null;
+        }
+
+        public virtual async Task Delete(Guid id)
+        {
+            var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+
+
+        }
+
 
         protected abstract IQueryable<TEntity> AddFilters(IQueryable<TEntity> queryable, TQuery query);
     }
