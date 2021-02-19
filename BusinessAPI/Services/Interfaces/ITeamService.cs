@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BusinessAPI.Services.Interfaces
 {
-    public interface IUserService
+    public interface ITeamService
     {
-        Task<UserModel> Get(Guid id);
-        Task<List<UserModel>> Get(UserQuery query);
-        Task<UserModel> Create(UserRequest request);
-        Task<UserModel> Update(Guid id, UserRequest request);
+        Task<TeamModel> Get(Guid id);
+        Task<List<TeamModel>> Get(TeamQuery query);
+        Task<TeamModel> Create(TeamRequest request);
+        Task<TeamModel> Update(Guid id, TeamRequest request);
         Task Delete(Guid id);
     }
 }

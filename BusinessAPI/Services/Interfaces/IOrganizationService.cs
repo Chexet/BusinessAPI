@@ -10,9 +10,10 @@ namespace BusinessAPI.Services.Interfaces
 {
     public interface IOrganizationService
     {
+        Task<OrganizationModel> Get(Guid id);
         Task<List<OrganizationModel>> Get(OrganizationQuery query);
-
         Task<OrganizationModel> Create(OrganizationRequest request);
-
+        Task<OrganizationModel> Update(Guid id, OrganizationRequest request);
+        Task Delete(Guid id);
     }
 }

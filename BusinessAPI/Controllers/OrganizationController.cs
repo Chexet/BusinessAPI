@@ -29,9 +29,19 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> Create([FromBody]UserRequest request)
+        public async Task<ActionResult<UserModel>> Create([FromBody]OrganizationRequest request)
         {
+            var model = await _service.Create(request);
 
+            return Ok(model);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update(OrganizationRequest request)
+        {
+            var model = await _service.Update(request);
+
+            return Ok(model);
         }
     }
 }

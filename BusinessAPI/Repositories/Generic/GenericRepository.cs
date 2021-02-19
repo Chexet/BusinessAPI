@@ -49,7 +49,6 @@ namespace BusinessAPI.Repositories
         {
             var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
-
         }
 
 

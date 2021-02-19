@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BusinessAPI.Services.Interfaces
 {
-    public interface IUserService
+    public interface IRoleService
     {
-        Task<UserModel> Get(Guid id);
-        Task<List<UserModel>> Get(UserQuery query);
-        Task<UserModel> Create(UserRequest request);
-        Task<UserModel> Update(Guid id, UserRequest request);
+        Task<RoleModel> Get(Guid id);
+        Task<List<RoleModel>> Get(RoleQuery query);
+        Task<RoleModel> Create(RoleRequest request);
+        Task<RoleModel> Update(Guid id, RoleRequest request);
         Task Delete(Guid id);
     }
 }

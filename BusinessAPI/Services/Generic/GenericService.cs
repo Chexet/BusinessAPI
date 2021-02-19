@@ -21,6 +21,9 @@ namespace BusinessAPI.Services.Generic
             _mapper = mapper;
         }
 
+        public virtual async Task<TModel> Get(Guid id) =>
+            _mapper.Map<TModel>(await _repository.Get(id));
+
         public virtual async Task<List<TModel>> Get(TQuery query)
         {
             var orgs = await _repository.Get(query);
@@ -43,7 +46,14 @@ namespace BusinessAPI.Services.Generic
 
         public virtual async Task<TModel> Update(Guid id, TRequest request)
         {
+            var entity = _mapper.Map<TEntity>(request);
 
+            var updatedEntity = await _repository.Update(id, entity);
+
+            return _mapper.Map<TModel>(updatedEntity);
         }
+
+        public virtual async Task Delete(Guid id) =>
+            await _repository.Delete(id);
     }
 }

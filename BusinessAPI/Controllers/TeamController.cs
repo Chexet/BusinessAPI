@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,11 @@ namespace BusinessAPI.Controllers
     [Route("api/[controller]")]
     public class TeamController : ControllerBase
     {
+        private readonly ITeamService _service;
+
+        public TeamController(ITeamService service)
+        {
+            _service = service;
+        }
     }
 }
