@@ -7,13 +7,20 @@ namespace BusinessAPI.Contracts.Response
 {
     public class ResponseModel<T>
     {
-        public bool Status { get; set; }
-        public string Message { get; set; }
-        public T Data { get; set; }
-
-        public ResponseModel()
+        public ResponseModel() { }
+        public ResponseModel(T data, bool success)
         {
-
+            Data = data;
+            Success = success;
         }
+        public ResponseModel(bool success, string error)
+        {
+            Success = success;
+            Errors.Add(error);
+        }
+
+        public bool Success { get; set; }
+        public List<string> Errors { get; set; } = new List<string>();
+        public T Data { get; set; }
     }
 }

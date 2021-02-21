@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessAPI.Contracts.Queries;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Entities.Interfaces;
 using BusinessAPI.Repositories;
 using System;
@@ -33,24 +34,27 @@ namespace BusinessAPI.Services.Generic
             return response;
         }
 
-        public virtual async Task<TModel> Create(TRequest request)
+        public virtual async Task<ResponseModel<TModel>> Create(TRequest request)
         {
             var entity = _mapper.Map<TEntity>(request);
             var response = await _repository.Create(entity);
 
-            // if (response == null) 
-            // Return some response model with err 
+            if (response == null)
+                return new ResponseModel<TModel>(false, "Something went wrong");
 
-            return _mapper.Map<TModel>(response);
+            return new ResponseModel<TModel>(_mapper.Map<TModel>(response), true);
         }
 
-        public virtual async Task<TModel> Update(Guid id, TRequest request)
+        public virtual async Task<ResponseModel<TModel>> Update(Guid id, TRequest request)
         {
             var entity = _mapper.Map<TEntity>(request);
 
             var updatedEntity = await _repository.Update(id, entity);
 
-            return _mapper.Map<TModel>(updatedEntity);
+            if (updatedEntity == null)
+                return new ResponseModel<TModel>(false, "Something went wrong");
+
+            return new ResponseModel<TModel>(_mapper.Map<TModel>(updatedEntity), true);
         }
 
         public virtual async Task Delete(Guid id) =>

@@ -21,7 +21,15 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrganizationModel>>> Get([FromQuery]OrganizationQuery query)
+        public async Task<ActionResult<OrganizationModel>> Get([FromQuery]Guid id)
+        {
+            var response = await _service.Get(id);
+
+            return Ok(response);
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<OrganizationModel>>> Get([FromQuery] OrganizationQuery query)
         {
             var response = await _service.Get(query);
 
@@ -29,7 +37,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserModel>> Create([FromBody]OrganizationRequest request)
+        public async Task<ActionResult<OrganizationModel>> Create([FromBody] OrganizationRequest request)
         {
             var model = await _service.Create(request);
 
@@ -37,11 +45,19 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(OrganizationRequest request)
+        public async Task<ActionResult> Update([FromQuery] Guid id, [FromBody] OrganizationRequest request)
         {
-            var model = await _service.Update(request);
+            var model = await _service.Update(id, request);
 
             return Ok(model);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete([FromQuery] Guid id)
+        {
+            await _service.Delete(id);
+
+            return Ok();
         }
     }
 }

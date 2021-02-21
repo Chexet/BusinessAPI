@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessAPI.Installers.Extensions;
 
 namespace BusinessAPI
 {
@@ -48,15 +49,15 @@ namespace BusinessAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDevelopmentExceptionHandling();
             }
             else
-                app.UseExceptionHandler("/error");
+                app.UseProdExceptionHandling();
 
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
-                config.SwaggerEndpoint("/swagger/v1/swagger.json", "BusinessAPIv1");
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "BusinessAPI v1");
                 config.RoutePrefix = string.Empty;
             });
 

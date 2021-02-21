@@ -20,7 +20,7 @@ namespace BusinessAPI.Contexts
             builder.Entity<UserEntity>()
                 .HasOne(x => x.Role)
                 .WithMany(y => y.Users)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<UserEntity>()
                 .HasOne(x => x.Role);

@@ -36,19 +36,29 @@ namespace BusinessAPI.Repositories
         {
             await _context.Set<TEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
-
+            Console.WriteLine(entity.Id);
             return await dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
         }
 
         public virtual async Task<TEntity> Update(Guid id, TEntity entity)
         {
-            return null;
+            var currEntity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (currEntity == null) return null; 
+
+            entity.Id = currEntity.Id;
+            entity.Updated = DateTime.Now;
+            entity.Created = currEntity.Created;
+
+            _context.Update(currEntity).CurrentValues.SetValues(entity);
+            return await _context.SaveChangesAsync() > 0
+                ? await dbSet.FirstOrDefaultAsync(x => x.Id == id)
+                : null;
         }
 
         public virtual async Task Delete(Guid id)
         {
             var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-
         }
 
 
