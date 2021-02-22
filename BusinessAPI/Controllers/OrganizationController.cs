@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,7 +38,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrganizationModel>> Create([FromBody] OrganizationRequest request)
+        public async Task<ActionResult<ResponseModel<OrganizationModel>>> Create([FromBody] OrganizationRequest request)
         {
             var model = await _service.Create(request);
 
@@ -45,7 +46,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromQuery] Guid id, [FromBody] OrganizationRequest request)
+        public async Task<ActionResult<ResponseModel<OrganizationModel>>> Update([FromQuery] Guid id, [FromBody] OrganizationRequest request)
         {
             var model = await _service.Update(id, request);
 

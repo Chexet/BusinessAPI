@@ -156,7 +156,7 @@ namespace BusinessAPI.Migrations
                     b.HasOne("BusinessAPI.Entities.OrganizationEntity", "Organization")
                         .WithMany("Teams")
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Organization");
@@ -167,7 +167,7 @@ namespace BusinessAPI.Migrations
                     b.HasOne("BusinessAPI.Entities.OrganizationEntity", "Organization")
                         .WithMany("Users")
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BusinessAPI.Entities.RoleEntity", "Role")

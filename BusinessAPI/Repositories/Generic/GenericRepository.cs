@@ -34,9 +34,13 @@ namespace BusinessAPI.Repositories
 
         public virtual async Task<TEntity> Create(TEntity entity)
         {
+            var currTime = DateTime.UtcNow;
+            entity.Created = currTime;
+            entity.Updated = currTime;
+
             await _context.Set<TEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
-            Console.WriteLine(entity.Id);
+            
             return await dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
         }
 
@@ -59,6 +63,9 @@ namespace BusinessAPI.Repositories
         public virtual async Task Delete(Guid id)
         {
             var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
 

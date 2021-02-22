@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Contracts.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace BusinessAPI.Services.Interfaces
     {
         Task<RoleModel> Get(Guid id);
         Task<List<RoleModel>> Get(RoleQuery query);
-        Task<RoleModel> Create(RoleRequest request);
-        Task<RoleModel> Update(Guid id, RoleRequest request);
+        Task<ResponseModel<RoleModel>> Create(RoleRequest request);
+        Task<ResponseModel<RoleModel>> Update(Guid id, RoleRequest request);
         Task Delete(Guid id);
     }
 }
