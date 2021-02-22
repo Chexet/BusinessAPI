@@ -57,7 +57,7 @@ namespace BusinessAPI.Services.Generic
             return new ResponseModel<TModel>(_mapper.Map<TModel>(updatedEntity), true);
         }
 
-        public virtual async Task Delete(Guid id) =>
+        public virtual async Task<ResponseModel<bool>> Delete(Guid id) =>
             await _repository.Delete(id);
     }
 }

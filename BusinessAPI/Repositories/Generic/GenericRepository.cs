@@ -1,5 +1,6 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Queries;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -60,12 +61,17 @@ namespace BusinessAPI.Repositories
                 : null;
         }
 
-        public virtual async Task Delete(Guid id)
+        public virtual async Task<ResponseModel<bool>> Delete(Guid id)
         {
             var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
+            if (entity == null)
+                return new ResponseModel<bool>(false, $"No {nameof(TEntity).Replace("Entity", "")} with the corresponding id was found");
+
             _context.Remove(entity);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0
+                ? new ResponseModel<bool>(true, true)
+                : new ResponseModel<bool>(false, $"Something went wrong attempting to delete {nameof(TEntity).Replace("Entity", "")}");
         }
 
 

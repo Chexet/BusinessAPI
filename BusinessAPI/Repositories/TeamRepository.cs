@@ -17,6 +17,9 @@ namespace BusinessAPI.Repositories
 
         protected override IQueryable<TeamEntity> AddFilters(IQueryable<TeamEntity> queryable, TeamQuery query)
         {
+            if (!string.IsNullOrWhiteSpace(query.Name))
+                queryable = queryable.Where(x => x.Name.ToUpper().Contains(query.Name.ToUpper()));
+
             return queryable;
         }
     }

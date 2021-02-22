@@ -13,11 +13,9 @@ namespace BusinessAPI.Profiles
         public UserProfile()
         {
             CreateMap<UserEntity, UserModel>()
-                .ForMember(destination => destination.RoleName, 
+                .ForMember(destination => destination.RoleName,
                     options => options
-                        .MapFrom(source => source.Role.Name))
-                .ForMember(destination => destination.Name, 
-                    options => options.MapFrom(source => source.FirstName + " " + source.LastName));
+                        .MapFrom(source => source.Role.Name));
         }
     }
 }

@@ -14,7 +14,16 @@ namespace BusinessAPI.Repositories
 
         protected override IQueryable<UserEntity> AddFilters(IQueryable<UserEntity> queryable, UserQuery query)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(query.FirstName))
+                queryable = queryable.Where(x => x.FirstName.ToUpper().Contains(query.FirstName.ToUpper()));
+
+            if (!string.IsNullOrWhiteSpace(query.LastName))
+                queryable = queryable.Where(x => x.LastName.ToUpper().Contains(query.LastName.ToUpper()));
+
+            if (!string.IsNullOrWhiteSpace(query.Email))
+                queryable = queryable.Where(x => x.Email.ToUpper().Contains(query.Email.ToUpper()));
+
+            return queryable;
         }
     }
 }

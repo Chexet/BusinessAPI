@@ -14,7 +14,10 @@ namespace BusinessAPI.Repositories
 
         protected override IQueryable<RoleEntity> AddFilters(IQueryable<RoleEntity> queryable, RoleQuery query)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(query.Name))
+                queryable = queryable.Where(x => x.Name.ToUpper().Contains(query.Name.ToUpper()));
+
+            return queryable;
         }
     }
 }
