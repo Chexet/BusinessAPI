@@ -8,5 +8,6 @@ namespace BusinessAPI.Contracts.Requests
     public class TeamRequest
     {
         public string Name { get; set; }
+        public Guid OrgId { get; set; }
     }
 }

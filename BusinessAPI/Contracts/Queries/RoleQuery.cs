@@ -9,6 +9,5 @@ namespace BusinessAPI.Contracts.Queries
     public class RoleQuery : PageListQuery
     {
         public string Name { get; set; }
-        public IEnumerable<UserEntity> Users { get; set; }
     }
 }

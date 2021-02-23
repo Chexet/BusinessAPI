@@ -14,6 +14,9 @@ namespace BusinessAPI.Repositories
 
         protected override IQueryable<UserEntity> AddFilters(IQueryable<UserEntity> queryable, UserQuery query)
         {
+            if (query.OrgId.HasValue)
+                queryable = queryable.Where(x => x.OrganizationId == query.OrgId);
+
             if (!string.IsNullOrWhiteSpace(query.FirstName))
                 queryable = queryable.Where(x => x.FirstName.ToUpper().Contains(query.FirstName.ToUpper()));
 

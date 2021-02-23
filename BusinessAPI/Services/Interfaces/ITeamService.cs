@@ -15,6 +15,6 @@ namespace BusinessAPI.Services.Interfaces
         Task<List<TeamModel>> Get(TeamQuery query);
         Task<ResponseModel<TeamModel>> Create(TeamRequest request);
         Task<ResponseModel<TeamModel>> Update(Guid id, TeamRequest request);
-        Task Delete(Guid id);
+        Task<ResponseModel<bool>> Delete(Guid id);
     }
 }

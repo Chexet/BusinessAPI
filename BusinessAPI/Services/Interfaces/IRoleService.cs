@@ -15,6 +15,6 @@ namespace BusinessAPI.Services.Interfaces
         Task<List<RoleModel>> Get(RoleQuery query);
         Task<ResponseModel<RoleModel>> Create(RoleRequest request);
         Task<ResponseModel<RoleModel>> Update(Guid id, RoleRequest request);
-        Task Delete(Guid id);
+        Task<ResponseModel<bool>> Delete(Guid id);
     }
 }

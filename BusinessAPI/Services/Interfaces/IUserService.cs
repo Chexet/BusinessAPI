@@ -15,6 +15,6 @@ namespace BusinessAPI.Services.Interfaces
         Task<List<UserModel>> Get(UserQuery query);
         Task<ResponseModel<UserModel>> Create(UserRequest request);
         Task<ResponseModel<UserModel>> Update(Guid id, UserRequest request);
-        Task Delete(Guid id);
+        Task<ResponseModel<bool>> Delete(Guid id);
     }
 }

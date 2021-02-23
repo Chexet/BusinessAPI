@@ -15,6 +15,6 @@ namespace BusinessAPI.Services.Interfaces
         Task<List<OrganizationModel>> Get(OrganizationQuery query);
         Task<ResponseModel<OrganizationModel>> Create(OrganizationRequest request);
         Task<ResponseModel<OrganizationModel>> Update(Guid id, OrganizationRequest request);
-        Task Delete(Guid id);
+        Task<ResponseModel<bool>> Delete(Guid id);
     }
 }

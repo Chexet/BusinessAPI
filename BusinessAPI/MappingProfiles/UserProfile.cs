@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessAPI.Contracts.Models;
+using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace BusinessAPI.Profiles
                 .ForMember(destination => destination.RoleName,
                     options => options
                         .MapFrom(source => source.Role.Name));
+            CreateMap<UserRequest, UserEntity>();
+               // .AfterMap((destination, source) =>
+                  //  source.Teams.AddRange());
         }
     }
 }

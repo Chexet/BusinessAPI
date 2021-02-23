@@ -9,5 +9,6 @@ namespace BusinessAPI.Contracts.Queries
     public class TeamQuery : PageListQuery
     {
         public string Name { get; set; }
+        public Guid? OrgId { get; set; }
     }
 }

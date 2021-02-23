@@ -48,9 +48,7 @@ namespace BusinessAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDevelopmentExceptionHandling();
-            }
             else
                 app.UseProdExceptionHandling();
 
@@ -61,7 +59,7 @@ namespace BusinessAPI
                 config.RoutePrefix = string.Empty;
             });
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -76,11 +74,17 @@ namespace BusinessAPI
         private void AddServices(IServiceCollection services)
         {
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
 
         private void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<OrganizationRepository>();
+            services.AddScoped<TeamRepository>();
+            services.AddScoped<UserRepository>();
+            services.AddScoped<RoleRepository>();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessAPI.Controllers
 {
+    [Route("/api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
