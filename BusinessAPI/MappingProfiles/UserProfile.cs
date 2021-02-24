@@ -17,7 +17,11 @@ namespace BusinessAPI.Profiles
                 .ForMember(destination => destination.RoleName,
                     options => options
                         .MapFrom(source => source.Role.Name));
-            CreateMap<UserRequest, UserEntity>();
+            CreateMap<UserRequest, UserEntity>()
+                .ForSourceMember(source => source.TeamIds,
+                    options => options.DoNotValidate());
+                
+                 
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BusinessAPI.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<TeamModel> Get(Guid id);
+        Task<ResponseModel<TeamModel>> Get(Guid id);
         Task<List<TeamModel>> Get(TeamQuery query);
         Task<ResponseModel<TeamModel>> Create(TeamRequest request);
         Task<ResponseModel<TeamModel>> Update(Guid id, TeamRequest request);

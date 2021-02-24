@@ -11,7 +11,7 @@ namespace BusinessAPI.Services.Interfaces
 {
     public interface IRoleService
     {
-        Task<RoleModel> Get(Guid id);
+        Task<ResponseModel<RoleModel>> Get(Guid id);
         Task<List<RoleModel>> Get(RoleQuery query);
         Task<ResponseModel<RoleModel>> Create(RoleRequest request);
         Task<ResponseModel<RoleModel>> Update(Guid id, RoleRequest request);

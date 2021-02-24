@@ -34,7 +34,7 @@ namespace BusinessAPI
         {
             services.AddControllers();
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(cfg => cfg.AllowNullCollections = true, typeof(Startup));
             services.AddSwaggerGen();
 
             services.AddDbContext<BusinessContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BusinessDatabase")));

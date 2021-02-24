@@ -33,11 +33,14 @@ namespace BusinessAPI.Contexts
             builder.Entity<UserEntity>()
                 .HasOne(x => x.Organization);
 
+            builder.Entity<UserEntity>()
+                .Property("RoleId")
+                .IsRequired(false);
+
             builder.Entity<TeamEntity>()
                 .HasOne(x => x.Organization)
                 .WithMany(x => x.Teams)
                 .OnDelete(DeleteBehavior.NoAction);
-
 
             base.OnModelCreating(builder);
         }

@@ -11,7 +11,7 @@ namespace BusinessAPI.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserModel> Get(Guid id);
+        Task<ResponseModel<UserModel>> Get(Guid id);
         Task<List<UserModel>> Get(UserQuery query);
         Task<ResponseModel<UserModel>> Create(UserRequest request);
         Task<ResponseModel<UserModel>> Update(Guid id, UserRequest request);

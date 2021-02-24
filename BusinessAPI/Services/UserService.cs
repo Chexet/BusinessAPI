@@ -26,7 +26,7 @@ namespace BusinessAPI.Services
         public override async Task<ResponseModel<UserModel>> Create(UserRequest request)
         {
             // ....?
-            var teamEntities = await _teamRepository.Get(request.Teams);
+            var teamEntities = await _teamRepository.Get(request.TeamIds);
 
             if (!teamEntities.Success)
                 return new ResponseModel<UserModel>(false, teamEntities.Errors[0]);

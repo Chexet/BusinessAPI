@@ -13,7 +13,7 @@ namespace BusinessAPI.Contracts.Requests
         public string LastName { get; set; }
 
 
-        public List<Guid> Teams { get; set; }
+        public List<Guid> TeamIds { get; set; }
         public Guid? OrganizationId { get; set; }
         public Guid? RoleId { get; set; }
     }

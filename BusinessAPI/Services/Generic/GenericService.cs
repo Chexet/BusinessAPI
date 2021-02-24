@@ -25,6 +25,10 @@ namespace BusinessAPI.Services.Generic
         public virtual async Task<ResponseModel<TModel>> Get(Guid id)
         {
             var response = await _repository.Get(id);
+
+            return response.Success
+                ? new ResponseModel<TModel>(_mapper.Map<TModel>(response.Data), true)
+                : new ResponseModel<TModel>(false, response.Errors[0]);
         }
 
         public virtual async Task<List<TModel>> Get(TQuery query)
@@ -44,7 +48,7 @@ namespace BusinessAPI.Services.Generic
             if (response == null)
                 return new ResponseModel<TModel>(false, "Something went wrong");
 
-            return new ResponseModel<TModel>(_mapper.Map<TModel>(response), true);
+            return new ResponseModel<TModel>(_mapper.Map<TModel>(response.Data), true);
         }
 
         public virtual async Task<ResponseModel<TModel>> Update(Guid id, TRequest request)

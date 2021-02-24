@@ -1,6 +1,8 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Queries;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace BusinessAPI.Repositories
     {
         public TeamRepository(BusinessContext context) : base(context)
         {
-            dbSet = context.Set<TeamEntity>();
+            dbSet = context.Set<TeamEntity>().Include(e => e.Users);
         }
 
         protected override IQueryable<TeamEntity> AddFilters(IQueryable<TeamEntity> queryable, TeamQuery query)

@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Response;
+using BusinessAPI.Entities;
 using BusinessAPI.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,7 +27,7 @@ namespace BusinessAPI.Repositories
             var entity = await dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
-                return new ResponseModel<TEntity>(false, $"No {nameof(TEntity).Replace("Entity", "")} found");
+                return new ResponseModel<TEntity>(false, $"No {typeof(TEntity).Name.Replace("Entity", "")} found");
 
             return new ResponseModel<TEntity>(entity, true);
         }
@@ -36,7 +37,7 @@ namespace BusinessAPI.Repositories
             var entities = await dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
 
             if (entities.Count < ids.Count())
-                return new ResponseModel<IEnumerable<TEntity>>(false, $"Could not find provided {nameof(TEntity).Replace("Entity", "")}(s)");
+                return new ResponseModel<IEnumerable<TEntity>>(false, $"Could not find provided {typeof(TEntity).Name.Replace("Entity", "")}(s)");
 
             return new ResponseModel<IEnumerable<TEntity>>(entities, true);
         }
@@ -55,13 +56,13 @@ namespace BusinessAPI.Repositories
             entity.Updated = currTime;
 
             await _context.Set<TEntity>().AddAsync(entity);
+            var saves = await _context.SaveChangesAsync();
 
-            // meh...?!
             var createdEntity = await dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-            return await _context.SaveChangesAsync() > 0 
+            return saves > 0 
                 ? new ResponseModel<TEntity>(createdEntity, true)
-                : new ResponseModel<TEntity>(false, $"Something went wrong when creating {nameof(TEntity).Replace("Entity", "")}");
+                : new ResponseModel<TEntity>(false, $"Something went wrong when creating {typeof(TEntity).Name.Replace("Entity", "")}");
         }
 
         public virtual async Task<TEntity> Update(Guid id, TEntity entity)
@@ -85,12 +86,12 @@ namespace BusinessAPI.Repositories
             var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
-                return new ResponseModel<bool>(false, $"No {nameof(TEntity).Replace("Entity", "")} with the corresponding id was found");
+                return new ResponseModel<bool>(false, $"No {typeof(TEntity).Name.Replace("Entity", "")} with the corresponding id was found");
 
             _context.Remove(entity);
             return await _context.SaveChangesAsync() > 0
                 ? new ResponseModel<bool>(true, true)
-                : new ResponseModel<bool>(false, $"Something went wrong attempting to delete {nameof(TEntity).Replace("Entity", "")}");
+                : new ResponseModel<bool>(false, $"Something went wrong attempting to delete {typeof(TEntity).Name.Replace("Entity", "")}");
         }
 
 

@@ -24,7 +24,7 @@ namespace BusinessAPI.Entities
         public OrganizationEntity Organization { get; set; }
 
 
-        public Guid RoleId { get; set; }
+        public Guid? RoleId { get; set; }
         [ForeignKey(nameof(RoleId))]
         public RoleEntity Role { get; set; }
 
