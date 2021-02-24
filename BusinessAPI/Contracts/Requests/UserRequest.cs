@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace BusinessAPI.Contracts.Requests
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Guid? TeamId { get; set; }
-        public Guid? OrgId { get; set; }
+
+
+        public List<Guid> Teams { get; set; }
+        public Guid? OrganizationId { get; set; }
+        public Guid? RoleId { get; set; }
     }
 }

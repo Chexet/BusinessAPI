@@ -22,8 +22,10 @@ namespace BusinessAPI.Services.Generic
             _mapper = mapper;
         }
 
-        public virtual async Task<TModel> Get(Guid id) =>
-            _mapper.Map<TModel>(await _repository.Get(id));
+        public virtual async Task<ResponseModel<TModel>> Get(Guid id)
+        {
+            var response = await _repository.Get(id);
+        }
 
         public virtual async Task<List<TModel>> Get(TQuery query)
         {

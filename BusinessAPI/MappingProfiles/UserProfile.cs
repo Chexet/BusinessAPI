@@ -18,8 +18,6 @@ namespace BusinessAPI.Profiles
                     options => options
                         .MapFrom(source => source.Role.Name));
             CreateMap<UserRequest, UserEntity>();
-               // .AfterMap((destination, source) =>
-                  //  source.Teams.AddRange());
         }
     }
 }

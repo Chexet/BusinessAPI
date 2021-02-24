@@ -2,6 +2,7 @@
 using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Entities;
 using BusinessAPI.Repositories;
 using BusinessAPI.Services.Generic;
@@ -15,6 +16,28 @@ namespace BusinessAPI.Services
 {
     public class UserService : GenericService<UserRepository, UserEntity, UserModel, UserRequest, UserQuery>, IUserService
     {
-        public UserService(IMapper mapper, UserRepository repository) : base(mapper, repository) { }
+        private readonly TeamRepository _teamRepository;
+
+        public UserService(IMapper mapper, UserRepository repository, TeamRepository teamRepository) : base(mapper, repository) 
+        {
+            _teamRepository = teamRepository;    
+        }
+
+        public override async Task<ResponseModel<UserModel>> Create(UserRequest request)
+        {
+            // ....?
+            var teamEntities = await _teamRepository.Get(request.Teams);
+
+            if (!teamEntities.Success)
+                return new ResponseModel<UserModel>(false, teamEntities.Errors[0]);
+
+            var mapping = _mapper.Map<UserEntity>(request);
+            mapping.Teams = teamEntities.Data.ToList();
+            var response = await _repository.Create(mapping);
+
+            return response.Success
+                ? new ResponseModel<UserModel>(_mapper.Map<UserModel>(response.Data), true)
+                : new ResponseModel<UserModel>(false, response.Errors[0]);
+        }
     }
 }
