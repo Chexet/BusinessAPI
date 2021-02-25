@@ -13,7 +13,10 @@ namespace BusinessAPI.Repositories
     {
         public OrganizationRepository(BusinessContext context) : base(context)
         {
-            dbSet = context.Organizations.AsQueryable();
+            dbSet = context.Organizations.AsQueryable()
+                .Include("Teams")
+                .Include("Users")
+                .Include("Roles");
         }
 
         protected override IQueryable<OrganizationEntity> AddFilters(IQueryable<OrganizationEntity> queryable, OrganizationQuery query)

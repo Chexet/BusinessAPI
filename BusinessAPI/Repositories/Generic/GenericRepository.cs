@@ -68,8 +68,7 @@ namespace BusinessAPI.Repositories
         public virtual async Task<TEntity> Update(Guid id, TEntity entity)
         {
             var currEntity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-
-            if (currEntity == null) return null; 
+            if (currEntity == null) return null;
 
             entity.Id = currEntity.Id;
             entity.Updated = DateTime.Now;

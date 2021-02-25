@@ -20,7 +20,7 @@ namespace BusinessAPI.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<TeamModel>> Get([FromQuery] Guid id)
         {
             var response = await _service.Get(id);
@@ -28,13 +28,21 @@ namespace BusinessAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<ActionResult<List<TeamModel>>> Get([FromQuery] TeamQuery query)
         {
             var response = await _service.Get(query);
 
             return Ok(response);
         }
+
+        //[HttpGet("GetAll")]
+        //public async Task<ActionResult<List<TeamModel>>> Get()
+        //{
+        //    var response = await _service.Get();
+
+        //    return Ok(response);
+        //}
 
         [HttpPost]
         public async Task<ActionResult<TeamModel>> Create([FromBody] TeamRequest request)

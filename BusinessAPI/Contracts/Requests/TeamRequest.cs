@@ -9,5 +9,6 @@ namespace BusinessAPI.Contracts.Requests
     {
         public string Name { get; set; }
         public Guid OrgId { get; set; }
+        public List<Guid> UserIds { get; set; }
     }
 }

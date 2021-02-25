@@ -21,15 +21,15 @@ namespace BusinessAPI.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<OrganizationModel>> Get([FromQuery]Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrganizationModel>> Get([FromRoute] Guid id)
         {
             var response = await _service.Get(id);
 
             return Ok(response);
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<ActionResult<List<OrganizationModel>>> Get([FromQuery] OrganizationQuery query)
         {
             var response = await _service.Get(query);

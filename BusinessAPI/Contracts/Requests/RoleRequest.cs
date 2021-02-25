@@ -8,5 +8,6 @@ namespace BusinessAPI.Contracts.Requests
     public class RoleRequest
     {
         public string Name { get; set; }
+        public Guid OrganizationId { get; set; }
     }
 }

@@ -9,5 +9,10 @@ namespace BusinessAPI.Contracts.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+
+
+        public ICollection<UserModel> Users { get; set; }
+        public ICollection<TeamModel> Teams { get; set; }
+        public ICollection<RoleModel> Roles { get; set; }
     }
 }

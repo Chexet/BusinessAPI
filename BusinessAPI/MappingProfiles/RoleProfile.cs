@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessAPI.Contracts.Models;
+using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace BusinessAPI.Profiles
         public RoleProfile()
         {
             CreateMap<RoleEntity, RoleModel>();
+            CreateMap<RoleRequest, RoleEntity>();
         }
     }
 }

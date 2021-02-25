@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,21 +21,29 @@ namespace BusinessAPI.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<UserModel>> Get([FromQuery] Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserModel>> Get([FromRoute] Guid id)
         {
             var response = await _service.Get(id);
 
             return Ok(response);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<List<UserModel>>> Get([FromQuery] UserQuery query)
+        [HttpGet]
+        public async Task<ActionResult<ResponseModel<List<UserModel>>>> Get([FromQuery] UserQuery query)
         {
             var response = await _service.Get(query);
 
             return Ok(response);
         }
+
+        //[HttpGet("GetAll")]
+        //public async Task<ActionResult<List<UserModel>>> Get()
+        //{
+        //    var response = await _service.Get();
+
+        //    return Ok(response);
+        //}
 
         [HttpPost]
         public async Task<ActionResult<UserModel>> Create([FromBody] UserRequest request)

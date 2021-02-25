@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,10 @@ namespace BusinessAPI.Repositories
 {
     public class RoleRepository : GenericRepository<RoleEntity, RoleQuery>
     {
-        public RoleRepository(BusinessContext context) : base(context) { }
+        public RoleRepository(BusinessContext context) : base(context) 
+        {
+            dbSet = context.Set<RoleEntity>();
+        }
 
         protected override IQueryable<RoleEntity> AddFilters(IQueryable<RoleEntity> queryable, RoleQuery query)
         {

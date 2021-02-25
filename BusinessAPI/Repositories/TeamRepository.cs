@@ -17,6 +17,21 @@ namespace BusinessAPI.Repositories
             dbSet = context.Set<TeamEntity>().Include(e => e.Users);
         }
 
+        public override async Task<TeamEntity> Update(Guid id, TeamEntity entity)
+        {
+            var currEntity = await _context.Set<TeamEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            if (currEntity == null) return null;
+
+            entity.Id = currEntity.Id;
+            entity.Updated = DateTime.Now;
+            entity.Created = currEntity.Created;
+
+            _context.Update(currEntity).CurrentValues.SetValues(entity);
+            return await _context.SaveChangesAsync() > 0
+                ? await dbSet.FirstOrDefaultAsync(x => x.Id == id)
+                : null;
+        }
+
         protected override IQueryable<TeamEntity> AddFilters(IQueryable<TeamEntity> queryable, TeamQuery query)
         {
             if (query.OrgId.HasValue)
