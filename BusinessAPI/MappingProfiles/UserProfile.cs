@@ -16,12 +16,13 @@ namespace BusinessAPI.Profiles
             CreateMap<UserEntity, UserModel>()
                 .ForMember(destination => destination.RoleName,
                     options => options
-                        .MapFrom(source => source.Role.Name));
+                        .MapFrom(source => source.Role.Name))
+                .ForMember(destination => destination.TeamIds,
+                    options => options
+                        .MapFrom(source => source.Teams.Select(x => x.Id).ToList()));
             CreateMap<UserRequest, UserEntity>()
                 .ForSourceMember(source => source.TeamIds,
                     options => options.DoNotValidate());
-                
-                 
         }
     }
 }

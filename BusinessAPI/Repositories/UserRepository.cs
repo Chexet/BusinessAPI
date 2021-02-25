@@ -13,7 +13,23 @@ namespace BusinessAPI.Repositories
     {
         public UserRepository(BusinessContext context) : base(context) 
         {
-            dbSet = context.Set<UserEntity>().Include("Role");
+            dbSet = context.Set<UserEntity>().Include("Role").Include("Teams");
+        }
+
+        public override async Task<UserEntity> Update(Guid id, UserEntity entity)
+        {
+            var currEntity = await _context.Set<UserEntity>().Include(e => e.Teams).FirstOrDefaultAsync(x => x.Id == id);
+            if (currEntity == null) return null;
+
+            entity.Id = currEntity.Id;
+            entity.Updated = DateTime.Now;
+            entity.Created = currEntity.Created;
+            currEntity.Teams = entity.Teams;
+
+            _context.Update(currEntity).CurrentValues.SetValues(entity);
+            return await _context.SaveChangesAsync() > 0
+                ? await dbSet.FirstOrDefaultAsync(x => x.Id == id)
+                : null;
         }
 
         protected override IQueryable<UserEntity> AddFilters(IQueryable<UserEntity> queryable, UserQuery query)

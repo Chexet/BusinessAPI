@@ -19,12 +19,13 @@ namespace BusinessAPI.Repositories
 
         public override async Task<TeamEntity> Update(Guid id, TeamEntity entity)
         {
-            var currEntity = await _context.Set<TeamEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            var currEntity = await _context.Set<TeamEntity>().Include(e => e.Users).FirstOrDefaultAsync(x => x.Id == id);
             if (currEntity == null) return null;
 
             entity.Id = currEntity.Id;
             entity.Updated = DateTime.Now;
             entity.Created = currEntity.Created;
+            currEntity.Users = entity.Users;
 
             _context.Update(currEntity).CurrentValues.SetValues(entity);
             return await _context.SaveChangesAsync() > 0

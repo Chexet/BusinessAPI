@@ -17,5 +17,7 @@ namespace BusinessAPI.Contracts.Models
 
         public string RoleName { get; set; }
         public Guid RoleId { get; set; }
+
+        public ICollection<Guid> TeamIds { get; set; }
     }
 }
