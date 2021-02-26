@@ -43,7 +43,7 @@ namespace BusinessAPI.Services
             var userEntities = await userRepository.Get(request.UserIds);
 
             if (!userEntities.Success)
-                return new ResponseModel<TeamModel>(false, userEntities.Errors[0]);
+                return new ResponseModel<TeamModel>(false, userEntities.Errors.FirstOrDefault());
 
             var entity = _mapper.Map<TeamEntity>(request);
             entity.Users = userEntities.Data.ToList();

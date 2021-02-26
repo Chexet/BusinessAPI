@@ -38,5 +38,23 @@ namespace BusinessAPI.Services
                 ? new ResponseModel<UserModel>(_mapper.Map<UserModel>(response.Data), true)
                 : new ResponseModel<UserModel>(false, response.Errors[0]);
         }
+
+        public override async Task<ResponseModel<UserModel>> Update(Guid id, UserRequest request)
+        {
+            var teamEntities = await _teamRepository.Get(request.TeamIds);
+
+            if (!teamEntities.Success)
+                return new ResponseModel<UserModel>(false, teamEntities.Errors.FirstOrDefault());
+
+            var entity = _mapper.Map<UserEntity>(request);
+            entity.Teams = teamEntities.Data.ToList();
+
+            var updatedEntity = await _repository.Update(id, entity);
+
+            if (updatedEntity == null)
+                return new ResponseModel<UserModel>(false, "Something went wrong");
+
+            return new ResponseModel<UserModel>(_mapper.Map<UserModel>(updatedEntity), true);
+        }
     }
 }
