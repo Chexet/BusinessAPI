@@ -56,9 +56,9 @@ namespace BusinessAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete([FromQuery] Guid id)
         {
-            await _service.Delete(id);
+            var res = await _service.Delete(id);
 
-            return Ok();
+            return Ok(res);
         }
     }
 }

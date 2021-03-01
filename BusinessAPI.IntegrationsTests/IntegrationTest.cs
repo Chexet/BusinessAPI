@@ -1,6 +1,8 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Controllers;
 using BusinessAPI.IntegrationTests;
+using BusinessAPI.Services;
+using BusinessAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,7 +11,7 @@ using System.Text;
 
 namespace BusinessAPI.IntegrationsTests
 {
-    class IntegrationTest
+    public class IntegrationTest
     {
         protected readonly IServiceProvider serviceProvider;
 
@@ -20,13 +22,16 @@ namespace BusinessAPI.IntegrationsTests
                 {
                     builder.ConfigureServices(services =>
                     {
-                        services.SetupTestDatabase<BusinessContext>(Guid.NewGuid().ToString());
+                        services.SetupTestDatabase<BusinessContext>("FakeInMemoryBusinessDb");
                         services.AddScoped<OrganizationController>();
                         services.AddScoped<TeamController>();
                         services.AddScoped<UserController>();
-                        services.AddScoped<RoleController>();
+                        services.AddScoped<IOrganizationService, OrganizationService>();
+                        services.AddScoped<ITeamService, TeamService>();
+                        services.AddScoped<IUserService, UserService>();
                     });
                 });
+            serviceProvider = appFactory.Services;
         }
 
         public void Dispose()
