@@ -5,14 +5,6 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAPI", "BusinessAPI\BusinessAPI.csproj", "{C3B952A8-319C-4880-AEEC-F5F313F9863B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessAPI.IntegrationTests", "BusinessAPI.IntegrationTests", "{161556BB-D5DD-4205-B718-64BAABE56B2B}"
-	ProjectSection(SolutionItems) = preProject
-		FakeStartup.cs = FakeStartup.cs
-		IntegrationTest.cs = IntegrationTest.cs
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessAPI.IntegrationTests", "BusinessAPI.IntegrationTests.csproj\BusinessAPI.IntegrationTests.csproj", "{9DC38105-9147-411D-A4A1-13895C237A67}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessAPI.IntegrationsTests", "BusinessAPI.IntegrationsTests\BusinessAPI.IntegrationsTests.csproj", "{FA9DE859-B680-4ADA-8226-ED27544DBA24}"
 EndProject
 Global
@@ -25,10 +17,6 @@ Global
 		{C3B952A8-319C-4880-AEEC-F5F313F9863B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3B952A8-319C-4880-AEEC-F5F313F9863B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3B952A8-319C-4880-AEEC-F5F313F9863B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DC38105-9147-411D-A4A1-13895C237A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DC38105-9147-411D-A4A1-13895C237A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DC38105-9147-411D-A4A1-13895C237A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DC38105-9147-411D-A4A1-13895C237A67}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA9DE859-B680-4ADA-8226-ED27544DBA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA9DE859-B680-4ADA-8226-ED27544DBA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA9DE859-B680-4ADA-8226-ED27544DBA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,9 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{9DC38105-9147-411D-A4A1-13895C237A67} = {161556BB-D5DD-4205-B718-64BAABE56B2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {786AE3DA-25FC-40D6-8D9F-75A03107476E}
