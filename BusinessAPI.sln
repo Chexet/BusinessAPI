@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAPI", "BusinessAPI\BusinessAPI.csproj", "{C3B952A8-319C-4880-AEEC-F5F313F9863B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessAPI.IntegrationsTests", "BusinessAPI.IntegrationsTests\BusinessAPI.IntegrationsTests.csproj", "{FA9DE859-B680-4ADA-8226-ED27544DBA24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAPI.IntegrationTests", "BusinessAPI.IntegrationsTests\BusinessAPI.IntegrationTests.csproj", "{FA9DE859-B680-4ADA-8226-ED27544DBA24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

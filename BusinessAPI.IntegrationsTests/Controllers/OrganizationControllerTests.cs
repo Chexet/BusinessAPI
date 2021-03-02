@@ -4,7 +4,6 @@ using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Contracts.Response;
 using BusinessAPI.Controllers;
-using BusinessAPI.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -16,11 +15,13 @@ using System.Threading.Tasks;
 
 namespace BusinessAPI.IntegrationsTests.Controllers
 {
+    [TestFixture]
     public class OrganizationControllerTests : IntegrationTest
     {
         public IServiceScope ServiceScope { get; set; }
         private OrganizationController _controller;
         private BusinessContext _context;
+
 
         [SetUp]
         public void Initialize()
@@ -28,14 +29,16 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             ServiceScope = serviceProvider.CreateScope();
             _controller = ServiceScope.ServiceProvider.GetService<OrganizationController>();
             _context = ServiceScope.ServiceProvider.GetService<BusinessContext>();
-            SeedData();
+            SeedData(_context);
         }
+
 
         [TearDown]
         public void CleanUp()
         {
             Dispose();
         }
+
 
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab")]
@@ -51,6 +54,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsTrue(actual.Success);
         }
 
+
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2")]
         public async Task Organization_Get_WithNonExistingId_ReturnsErrorResponse(string id)
@@ -63,6 +67,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.AreEqual("No Organization found", actual?.Errors.FirstOrDefault());
             Assert.IsFalse(actual.Success);
         }
+
 
         [TestCase("n")]
         [TestCase("o")]
@@ -77,6 +82,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsTrue(actual.Count == 2);
             Assert.IsTrue(actual.All(x => x.Name.Contains(name)));
         }
+
 
         [TestCase("Avanza")]
         [TestCase("Zalando")]
@@ -93,6 +99,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsTrue(actual.Success);
         }
 
+
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "Knowee")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab", "Doormie")]
         public async Task Organization_Update_NameChange_ReturnsOrgWithUpdatedName(string id, string name)
@@ -108,6 +115,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.AreEqual(name, actual.Data.Name);
         }
 
+
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac")]
@@ -122,6 +130,7 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsNull(_context.Organizations.FirstOrDefault(x => x.Id == new Guid(id)));
         }
 
+
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1")]
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaae")]
         public async Task Organization_Delete_DeleteNonExistingId_ReturnsErrorMessage(string sid)
@@ -134,37 +143,6 @@ namespace BusinessAPI.IntegrationsTests.Controllers
 
             Assert.IsFalse(actual.Success);
             Assert.AreEqual("No Organization with the corresponding id was found", actual.Errors.FirstOrDefault());
-        }
-
-
-        private void SeedData()
-        {
-            var organizations = new List<OrganizationEntity>()
-            {
-                new OrganizationEntity()
-                {
-                    Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-                    Created = DateTime.Now.AddDays(-1),
-                    Updated = DateTime.Now.AddDays(-1),
-                    Name = "Knowe"
-                },
-                new OrganizationEntity()
-                {
-                    Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab"),
-                    Created = DateTime.Now.AddDays(-1),
-                    Updated = DateTime.Now.AddDays(-1),
-                    Name = "Dormy"
-                },
-                new OrganizationEntity()
-                {
-                    Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac"),
-                    Created = DateTime.Now.AddDays(-1),
-                    Updated = DateTime.Now.AddDays(-1),
-                    Name = "Avanza"
-                }
-            };
-            _context.Organizations.AddRange(organizations);
-            _context.SaveChanges();
         }
     }
 }

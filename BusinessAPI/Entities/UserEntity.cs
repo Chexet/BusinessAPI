@@ -19,7 +19,7 @@ namespace BusinessAPI.Entities
         public string Email { get; set; }
 
 
-        public Guid OrganizationId { get; set; }
+        public Guid? OrganizationId { get; set; }
         [ForeignKey(nameof(OrganizationId))]
         public OrganizationEntity Organization { get; set; }
 

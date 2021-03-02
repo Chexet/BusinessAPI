@@ -36,7 +36,7 @@ namespace BusinessAPI.Repositories
         {
             var entities = await dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
 
-            if (entities.GroupBy(x => x.Id).Where(x => x.Count() > 1).ToList().Count > 0)
+            if(ids.GroupBy(x => x).Where(x => x.Count() > 1).ToList().Count > 0)
                 return new ResponseModel<IEnumerable<TEntity>>(false, "There are duplicate ids");
             if (entities.Count < ids.Count())
                 return new ResponseModel<IEnumerable<TEntity>>(false, $"Could not find provided {typeof(TEntity).Name.Replace("Entity", "")}(s)");

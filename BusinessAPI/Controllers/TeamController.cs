@@ -1,6 +1,7 @@
 ﻿using BusinessAPI.Contracts.Models;
 using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Contracts.Response;
 using BusinessAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeamModel>> Get([FromQuery] Guid id)
+        public async Task<ActionResult<TeamModel>> Get([FromRoute] Guid id)
         {
             var response = await _service.Get(id);
 
@@ -53,7 +54,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromQuery] Guid id, [FromBody] TeamRequest request)
+        public async Task<ActionResult<ResponseModel<TeamModel>>> Update([FromQuery] Guid id, [FromBody] TeamRequest request)
         {
             var response = await _service.Update(id, request);
 
@@ -61,7 +62,7 @@ namespace BusinessAPI.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete([FromQuery] Guid id)
+        public async Task<ActionResult<ResponseModel<bool>>> Delete([FromQuery] Guid id)
         {
             var response = await _service.Delete(id);
 

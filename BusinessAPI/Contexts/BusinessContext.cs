@@ -27,20 +27,9 @@ namespace BusinessAPI.Contexts
                 .WithMany(x => x.Users)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<UserEntity>()
-                .HasOne(x => x.Role);
-
-            builder.Entity<UserEntity>()
-                .HasOne(x => x.Organization);
-
-            builder.Entity<UserEntity>()
-                .Property("RoleId")
-                .IsRequired(false);
-
             builder.Entity<TeamEntity>()
                 .HasOne(x => x.Organization)
-                .WithMany(x => x.Teams)
-                .OnDelete(DeleteBehavior.NoAction);
+                .WithMany(x => x.Teams);
 
             base.OnModelCreating(builder);
         }
