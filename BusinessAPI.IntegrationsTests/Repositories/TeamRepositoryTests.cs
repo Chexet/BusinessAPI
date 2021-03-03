@@ -1,5 +1,6 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Requests;
+using BusinessAPI.Entities;
 using BusinessAPI.IntegrationsTests;
 using BusinessAPI.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,20 +41,91 @@ namespace BusinessAPI.IntegrationTests.Repositories
         public async Task Team_Get_GetExistingTeamById_ReturnsExistingTeam(string sid)
         {
             var id = new Guid(sid);
+
             var response = await _repository.Get(id);
 
             Assert.IsTrue(response.Success);
             Assert.AreEqual(id, response.Data.Id);
         }
 
+
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6")]
         public async Task Team_Get_InvalidId_ReturnsErrorMessage(string sid)
         {
             var id = new Guid(sid);
+
             var response = await _repository.Get(id);
 
             Assert.IsFalse(response.Success);
             Assert.AreEqual("No Team found", response.Errors.FirstOrDefault());
+        }
+
+        [TestCase]
+        public async Task Team_Get_DuplicateIds_ReturnsErrorMessage()
+        {
+            var ids = new List<Guid>() { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6") };
+
+            var response = await _repository.Get(ids);
+
+            Assert.IsFalse(response.Success);
+            Assert.AreEqual("There are duplicate ids", response.Errors.FirstOrDefault());
+        }
+
+        [TestCase]
+        public async Task Team_Get_ListWithInvalidId_ReturnsErrorMessage()
+        {
+            var ids = new List<Guid>() { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa6") };
+
+            var response = await _repository.Get(ids);
+
+            Assert.IsFalse(response.Success);
+            Assert.AreEqual("Could not find provided Team(s)", response.Errors.FirstOrDefault());
+        }
+
+        [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2")]
+        public async Task Team_Get_ListWithValidIds_ReturnsListOfEntities(params string[] idArr)
+        {
+            var response = await _repository.Get(Array.ConvertAll(idArr, Guid.Parse));
+
+            Assert.IsTrue(response.Success);
+            Assert.IsTrue(response.Data.Count() == idArr.Length);
+        }
+
+        [TestCase("GAB", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
+        public async Task Team_Create_ValidRequest_ReturnsCreatedEntity(string name, string sid)
+        {
+            var orgId = new Guid(sid);
+            var requestEntity = new TeamEntity()
+            {
+                Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa4"),
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Name = name,
+                OrganizationId = orgId
+            };
+
+            var response = await _repository.Create(requestEntity);
+
+            Assert.IsTrue(response.Success);
+            Assert.IsNotNull(_context.Teams.FirstOrDefault(x => x.Id == requestEntity.Id));
+        }
+
+        [TestCase("GAB", "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaad")]
+        public async Task Team_Create_RequestWithInvalidOrgId_ReturnsErrorMessage(string name, string orgId)
+        {
+            var id = new Guid(orgId);
+            var requestEntity = new TeamEntity()
+            {
+                Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa4"),
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Name = name,
+                OrganizationId = id
+            };
+
+            var response = await _repository.Create(requestEntity);
+
+            Assert.IsNull(_context.Teams.FirstOrDefault(x => x.Id == requestEntity.Id));
         }
 
 

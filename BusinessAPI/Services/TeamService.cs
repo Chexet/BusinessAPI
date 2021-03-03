@@ -16,15 +16,18 @@ namespace BusinessAPI.Services
 {
     public class TeamService : GenericService<TeamRepository, TeamEntity, TeamModel, TeamRequest, TeamQuery>, ITeamService
     {
-        private readonly UserRepository userRepository;
-        public TeamService(IMapper mapper, TeamRepository teamRepository, UserRepository repository) : base(mapper, teamRepository) 
+        private readonly UserRepository _userRepository;
+        private readonly OrganizationRepository _orgRepository;
+
+        public TeamService(IMapper mapper, TeamRepository teamRepository, UserRepository userRepository, OrganizationRepository organizationRepository) : base(mapper, teamRepository) 
         {
-            userRepository = repository;
+            _userRepository = userRepository;
+            _orgRepository = organizationRepository;
         }
 
         public override async Task<ResponseModel<TeamModel>> Create(TeamRequest request)
         {
-            var userEntities = await userRepository.Get(request.UserIds);
+            var userEntities = await _userRepository.Get(request.UserIds);
 
             if (!userEntities.Success)
                 return new ResponseModel<TeamModel>(false, userEntities.Errors[0]);
@@ -40,7 +43,7 @@ namespace BusinessAPI.Services
 
         public override async Task<ResponseModel<TeamModel>> Update(Guid id, TeamRequest request)
         {
-            var userEntities = await userRepository.Get(request.UserIds);
+            var userEntities = await _userRepository.Get(request.UserIds);
 
             if (!userEntities.Success)
                 return new ResponseModel<TeamModel>(false, userEntities.Errors.FirstOrDefault());

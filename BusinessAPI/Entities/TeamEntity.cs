@@ -17,7 +17,7 @@ namespace BusinessAPI.Entities
 
         public ICollection<UserEntity> Users { get; set; }
 
-        public Guid? OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         [ForeignKey(nameof(OrganizationId))]
         public OrganizationEntity Organization { get; set; }
     }

@@ -144,5 +144,20 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsFalse(actual.Success);
             Assert.AreEqual("No Organization with the corresponding id was found", actual.Errors.FirstOrDefault());
         }
+
+
+        [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")]
+        public async Task Organization_Delete_DeleteRemovesDependents_ReturnsSuccessfully(string sid)
+        {
+            var id = new Guid(sid);
+
+            var actionResult = await _controller.Delete(id);
+            var res = actionResult as OkObjectResult;
+            var actual = res.Value as ResponseModel<bool>;
+
+            Assert.IsTrue(actual.Success);
+            Assert.IsNull(_context.Users.FirstOrDefault(x => x.OrganizationId == id));
+            Assert.IsNull(_context.Teams.FirstOrDefault(x => x.OrganizationId == id));
+        }
     }
 }

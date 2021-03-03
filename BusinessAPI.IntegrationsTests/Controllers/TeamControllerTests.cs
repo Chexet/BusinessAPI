@@ -1,5 +1,6 @@
 ﻿using BusinessAPI.Contexts;
 using BusinessAPI.Contracts.Models;
+using BusinessAPI.Contracts.Queries;
 using BusinessAPI.Contracts.Requests;
 using BusinessAPI.Contracts.Response;
 using BusinessAPI.Controllers;
@@ -39,6 +40,31 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Dispose();
         }
 
+        [TestCase]
+        public async Task Team_Get_EmptyQuery_ReturnsAllEntities()
+        {
+            var query = new TeamQuery();
+
+            var actionResponse = await _controller.Get(query);
+            var res = actionResponse.Result as OkObjectResult;
+
+            var actual = res.Value as List<TeamModel>;
+
+            Assert.IsTrue(actual.Count == 2);
+        }
+
+        [TestCase]
+        public async Task Team_Get_InvalidQuery_ReturnsEmptyList()
+        {
+            var query = new TeamQuery() { Name = "asdasdasdwzdfsdc" };
+
+            var actionResponse = await _controller.Get(query);
+            var res = actionResponse.Result as OkObjectResult;
+
+            var actual = res.Value as List<TeamModel>;
+
+            Assert.IsTrue(actual.Count == 0);
+        }
 
         [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1")]
         public async Task Team_Update_UpdateUserListWithDuplicateIds_ReturnsErrorMessage(string id)
@@ -69,6 +95,21 @@ namespace BusinessAPI.IntegrationsTests.Controllers
             Assert.IsTrue(actual.Data.Users.Count == 2);
             Assert.IsTrue(teamReq.UserIds.All(x => actual.Data.Users.Any(y => y.Id == x)));
         }
+
+        [TestCase("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1")]
+        public async Task Team_Update_UpdateUserListWithInvalidId_ReturnsErrorMessage(string id)
+        {
+            var teamReq = new TeamRequest() { UserIds = new List<Guid>() { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaab7"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaab2") } };
+
+            var actionResponse = await _controller.Update(new Guid(id), teamReq);
+            var res = actionResponse.Result as OkObjectResult;
+
+            var actual = res.Value as ResponseModel<TeamModel>;
+
+            Assert.IsFalse(actual.Success);
+            Assert.AreEqual("Could not find provided User(s)", actual.Errors.FirstOrDefault());
+        }
+
     }
 
 }

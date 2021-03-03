@@ -24,8 +24,7 @@ namespace BusinessAPI.Contexts
 
             builder.Entity<UserEntity>()
                 .HasOne(x => x.Organization)
-                .WithMany(x => x.Users)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(x => x.Users);
 
             builder.Entity<TeamEntity>()
                 .HasOne(x => x.Organization)

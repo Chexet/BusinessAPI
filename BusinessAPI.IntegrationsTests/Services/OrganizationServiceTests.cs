@@ -24,18 +24,13 @@ namespace BusinessAPI.IntegrationsTests.Services
             _service = ServiceScope.ServiceProvider.GetService<IOrganizationService>();
             _repository = ServiceScope.ServiceProvider.GetService<OrganizationRepository>();
             _context = serviceProvider.GetService<BusinessContext>();
-            SeedData();
+            SeedData(_context);
         }
 
         [TearDown]
         public void CleanUp()
         {
             Dispose();
-        }
-
-        private void SeedData()
-        {
-            throw new NotImplementedException();
         }
     }
 }
