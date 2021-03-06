@@ -17,12 +17,10 @@ namespace BusinessAPI.Services
     public class TeamService : GenericService<TeamRepository, TeamEntity, TeamModel, TeamRequest, TeamQuery>, ITeamService
     {
         private readonly UserRepository _userRepository;
-        private readonly OrganizationRepository _orgRepository;
 
-        public TeamService(IMapper mapper, TeamRepository teamRepository, UserRepository userRepository, OrganizationRepository organizationRepository) : base(mapper, teamRepository) 
+        public TeamService(IMapper mapper, TeamRepository teamRepository, UserRepository userRepository) : base(mapper, teamRepository) 
         {
             _userRepository = userRepository;
-            _orgRepository = organizationRepository;
         }
 
         public override async Task<ResponseModel<TeamModel>> Create(TeamRequest request)
